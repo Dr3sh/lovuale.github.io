@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.cdnfonts.com/css/montserrat" rel="stylesheet">
+    <title>lov u</title>
+</head>
+<body>
+    <div class="todo">
+    <div class="speech-wrapper">
+        <div class="bubble">
+          <div class="txt">
+            <p class="name">Jeider</p>
+            <p id="mensaje" class="message"></p>
+            <span id="hora" class="timestamp">12:00 AM</span>
+          </div>
+        </div>
+    </div>
+    <div class="contadorcompleto">
+    <div class="siguientemens">Siguiente mensaje en:</div>
+    <div class="contador" id="contador">00:00:00</div>
+    </div>
+    </div>
+</body>
+<style>
+    .cambiomanual {
+        width: 200px;
+        height: 20px;
+        border: none;
+
+        color: #f5f5f5;
+        background-color: #2ecc71;
+    }
+    .todo {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+    .contadorcompleto {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+    }
+    .siguientemens {
+        font-family: 'Montserrat', sans-serif;
+        font-weight: 600;
+        font-size: 30px;  
+        color: white;
+    }
+    .contador {
+        font-weight: 600;
+        font-family: 'Montserrat', sans-serif;
+        font-size: 100px;
+        color: white;
+    }
+    .triangulito {
+        background-color: #2ecc71;
+        width: 10px;
+        height: 10px;
+    }
+    .speech-wrapper{
+        scale: 1.3;
+  padding: 30px 40px;
+  .bubble{
+    width: 24vw;
+    height: auto;
+    display: block;
+    background: rgb(32, 44, 51);
+    border-radius: 4px;
+    position: relative;
+    margin: 0 0 25px;
+    &.alt{
+      margin: 0 0 0 60px;
+    }
+    .txt{
+      padding: 8px 55px 8px 14px;
+      .name{
+        font-weight: 600;
+        font-size: 1.0vh;
+        margin: 0 0 4px;
+        color: rgb(6, 207, 129);
+        span{
+          font-weight: normal;
+          color: #b3b3b3;
+        }
+        &.alt{
+          color: #2ecc71;
+        }
+      }
+      .message{
+        font-size: 1.3vh;
+        margin: 0;
+        color: #ffffff;
+      }
+      .timestamp{
+        font-size: 0.9vh;
+        position: absolute;
+        bottom: 8px;
+        right: 10px;
+        text-transform: uppercase; color: #999
+      }
+    }
+    .bubble-arrow {
+      position: absolute;
+      width: 0;
+      bottom:42px;
+      left: -16px;
+      height: 0;
+      &.alt{
+        right: -2px;      
+        bottom: 40px;
+        left: auto;
+      }
+    }
+    .bubble-arrow:after {
+      content: "";
+      position: absolute;
+      border: 0 solid transparent;
+      border-top: 9px solid #f5f5f5;
+      border-radius: 0 20px 0;
+      width: 15px;
+      height: 30px;
+      transform: rotate(145deg);
+    }
+    .bubble-arrow.alt:after {
+      transform: rotate(45deg) scaleY(-1);
+    }
+  }
+}
+    html {
+        height: 100%;
+    }
+    body {
+        user-select: none;
+        display: flex;
+        flex-direction: column ;
+        font-family: Arial, Helvetica, sans-serif;
+        min-height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: rgb(32, 31, 31);
+        background-image: url(back.png);
+        background-size: 200vh;
+    }
+    .mensaje {
+        color: black;
+    }
+</style>
+<script>
+        function formatearNumero(numero) {
+            return numero < 10 ? `0${numero}` : numero;
+        }
+
+        function actualizarContador(tiempoRestante) {
+            const horas = Math.floor(tiempoRestante / 3600);
+            const minutos = Math.floor((tiempoRestante % 3600) / 60);
+            const segundos = tiempoRestante % 60;
+
+            const horasFormateadas = formatearNumero(horas);
+            const minutosFormateados = formatearNumero(minutos);
+            const segundosFormateados = formatearNumero(segundos);
+
+            document.getElementById("contador").textContent = `
+                ${horasFormateadas}:${minutosFormateados}:${segundosFormateados}
+            `;
+        }
+    function actualizarTexto() {
+    const frases = [
+      "lov u",
+      "amo tus ojos my lov",
+      "i love you like kanye loves kanye",
+      "espero que tengas/estés teniendo un lindo día, si no házmelo saber por favor",
+      "beautiful morning, you're the sun in my morning baby",
+      "te amo my lov",
+      "hola mi amor",
+      "si necesitas hablar o desahogarte estoy para tí siempre",
+      "gracias por soportarme tanto",
+      "amo que a pesar de que no entiendas mucho sobre la mitad de las cosas que digo sigas aguantandome día a día, lov u",
+      "te amo, ahora dilo tú",
+      "definitivamente soy tu fan #1",
+      "¿cómo amaneció mi café de la mañana?",
+      "me hacéis feliz",
+      "que privilegio es que vos me digáis my lov",
+      "i don't know how i'ma manage if one day you just up and leave",
+      "no sé pq tardaste tanto en llegar a mi vida, supongo que lo bueno se hace esperar",
+      "vamos por un helado?",
+      "me hace feliz pensar que cada vez confías más en mí, al principio eras bastante más tímida y reservada",
+      "tu amas a spiderman y yo a tí",
+      "siempre que necesites hablar estaré para tí"
+    ];
+
+    const indice = Math.floor(Math.random() * frases.length);
+    document.getElementById("mensaje").textContent = frases[indice];
+  }
+
+    function iniciarCuentaAtras() {
+        const tiempoInicial = 24 * 60 * 60;
+        let tiempoRestante = tiempoInicial;
+
+        const intervalo = setInterval(() => {
+            tiempoRestante--;
+            actualizarContador(tiempoRestante);
+
+            if (tiempoRestante <= 0) {
+                clearInterval(intervalo);
+                actualizarTexto();
+                tiempoRestante = tiempoInicial;
+                iniciarCuentaAtras();
+            }
+        }, 1000);
+    }
+    function obtenerHoraActual() {
+            const ahora = new Date();
+            const horas = ahora.getHours();
+            const minutos = ahora.getMinutes();
+
+            const horasFormateadas = formatearNumero(horas)
+            const minutosFormateados = formatearNumero(minutos)
+
+
+            let horaFormateada = horas % 12;
+            if (horaFormateada === 0) {
+                horaFormateada = 12; 
+            }
+            const sufijo = horas >= 12 ? 'PM' : 'AM';
+
+            document.getElementById('hora').textContent = `${horaFormateada}:${minutosFormateados} ${sufijo}`;
+        }
+
+        setInterval(obtenerHoraActual, 1000);
+
+    window.onload = () => {
+        iniciarCuentaAtras();
+    };
+
+    actualizarTexto();
+</script>
+</html>
